@@ -1,0 +1,120 @@
+#logIn {
+  background-color: lightblue;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 500px;
+  height: 50px;
+  border: 3px solid yellow;
+  margin: 50px;
+  flex-direction: row;
+  color: white;
+  background-color: black;
+}
+
+#inlog,
+#toggleButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#toggleButton {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.flikar {
+  margin: 50px;
+}
+
+#firstNext,
+#secondPrevious,
+#secondNext,
+#thirdPrevious,
+#thirdFirst {
+  padding: 10px;
+  width: 100px;
+  cursor: pointer;
+  position: relative;
+  top: 550px;
+  left: 150px;
+
+}
+
+#firstNext {
+  left: 200px;
+}
+
+.header {
+  border: 1px solid gray;
+  display: flex;
+  border: 3px solid yellow;
+}
+
+.header> * {
+  width: 40%;
+  height: 50px;
+  border: 1px solid lightgray;
+  padding: 0.2em 1em;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header> *:hover {
+  background-color: yellow;
+}
+
+.content {
+  border: 1px solid lightgray;
+  height: 100px;
+  position: relative;
+  background-color: black;
+  height: 600px;
+}
+
+.content> * {
+  position: absolute;
+  width: 600px;
+  height: auto;
+  display: block;
+}
+
+.header,
+.content {
+  width: 500px;
+}
+
+#pokemonCollection {
+  border: 2px solid yellow;
+  color: white;
+  background-color: black;
+  margin: 50px;
+  padding-bottom: 20px;
+  width: 500px;
+}
+
+img {
+  width: 500px;
+  height: auto;
+  margin: 0 auto;
+}
+
+#inputName {
+  margin-left: 20px;
+}
+
+p {
+  padding-left: 40px;
+}
+
+.color {
+  background-color: yellow;
+}
+.Tabcolor {
+  background-color: orange;
+}
+
