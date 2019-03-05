@@ -1,32 +1,8 @@
-//i modelen måste ha bara render function och jquerry in i vyn istället
-
-
 const TabModel = Backbone.Model.extend({
     defaults: {
         tab: 'firstTab',
         color: 'color'
-    },
-    tabShow: function () {
-        let tabId = this.get('tab');
-
-        $('#firstDiv').hide();
-        $('#secondDiv').hide();
-        $('#thirdDiv').hide();
-
-        if (tabId === 'firstTab') {
-            $('#firstDiv').show();
-            $('#firstTab').addClass( "Tabcolor" );
-           
-        } else if (tabId === 'secondTab') {
-            $('#secondDiv').show();
-            $('#secondTab').addClass( "Tabcolor" );
-            
-        } else if (tabId === 'thirdTab') {
-            $('#thirdDiv').show();
-            $('#thirdTab').addClass( "Tabcolor" );
-        
-        }
-    }  
+    }
 });
 
 let tabModel = new TabModel({});
@@ -35,36 +11,40 @@ const TabView = Backbone.View.extend({
     el: '#tabDiv',
     initialize: function () {
         this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'click', this.render);
     },
     render: function () {
         let color = this.model.get('color');
         let html = `<div class="header">
 			            <div id="firstTab" class="${color}"> Tab 1 </div>
-			            <div id="secondTab"> Tab 2 </div>
-			            <div id="thirdTab"> Tab 3 </div>
+			            <div id="secondTab" class="change"> Tab 2 </div>
+			            <div id="thirdTab" class="change"> Tab 3 </div>
 		            </div>`;
         this.$el.html(html);
     },
     events: {
-        "click": 'resetColor',
+        "click .change": 'resetColor',
         "click #firstTab": 'firstTabView',
         "click #secondTab": 'secondTabView',
         "click #thirdTab": 'thirdTabView'
     },
-    resetColor: function() {
-        this.model.set({color: ''});
+    resetColor: function(event) {
+        this.model.set({ color: '' });
     },
     firstTabView: function (event) {
         this.model.set({ tab: 'firstTab'});
-        this.model.tabShow();
+        $('#firstTab').addClass("color");
+        $('#firstDiv').show();
     },
     secondTabView: function (event) {
         this.model.set({ tab: 'secondTab'});
-        this.model.tabShow();
+        $('#secondTab').addClass("color");
+        $('#secondDiv').show();
     },
     thirdTabView: function (event) {
         this.model.set({ tab: 'thirdTab'});
-        this.model.tabShow();
+        $('#thirdTab').addClass("color");
+        $('#thirdDiv').show();
     }
 });
 
@@ -76,16 +56,21 @@ const FirstTabContent = Backbone.View.extend({
     render: function () {
         let tab = this.model.get('tab');
         if (tab === 'firstTab') {
-            let html = `<div id="firstDiv"> <button id="firstNext">Next</button> <br/> <img src="https://media.giphy.com/media/LY8esM2vNnC0rVt4iA/giphy.gif" alt="pokemon" /> </div>`;
+            let html = `<div id="firstDiv"> <button id="firstNext" class="change">Next</button> <br/> <img src="https://media.giphy.com/media/LY8esM2vNnC0rVt4iA/giphy.gif" alt="pokemon" /> </div>`;
             this.$el.html(html);
         };
     },
     events: {
+        "click .change": 'resetColor',
         "click #firstNext": 'secondTabView'
+    },
+    resetColor: function(event) {
+        this.model.set({ color: '' });
     },
     secondTabView: function (event) {
         this.model.set({ tab: 'secondTab' });
-        this.model.tabShow();
+        $('#secondTab').addClass("color");
+        $('#secondDiv').show();
     }
 });
 
@@ -107,11 +92,13 @@ const SecondTabContent = Backbone.View.extend({
     },
     firstTabView: function (event) {
         this.model.set({ tab: 'firstTab' });
-        this.model.tabShow();
+        $('#firstTab').addClass("color");
+        $('#firstDiv').show();
     },
     thirdTabView: function (event) {
         this.model.set({ tab: 'thirdTab' });
-        this.model.tabShow();
+        $('#thirdTab').addClass("color");
+        $('#thirdDiv').show();
     }
 });
 
@@ -133,29 +120,25 @@ const ThirdTabContent = Backbone.View.extend({
     },
     firstTabView: function (event) {
         this.model.set({ tab: 'firstTab' });
-        this.model.tabShow();
+        $('#firstTab').addClass("color");
+        $('#firstDiv').show();
     },
     secondTabView: function (event) {
         this.model.set({ tab: 'secondTab' });
-        this.model.tabShow();
+        $('#secondTab').addClass("color");
+        $('#secondDiv').show();
     }
 });
 
 $(document).ready(function () {
-
     let tabView = new TabView({ model: tabModel });
     tabView.render();
-
-
     let firstTabContent = new FirstTabContent({ model: tabModel });
     firstTabContent.render();
     let secondTabContent = new SecondTabContent({ model: tabModel });
     secondTabContent.render();
     let thirdTabContent = new ThirdTabContent({ model: tabModel });
     thirdTabContent.render();
-
-
-
 });
 
 
